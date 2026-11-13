@@ -1,0 +1,5 @@
+time_seconds,frame,track_id,class_id,label,confidence,source,uncertain
+1.0,18,1,1,Speed limit 30 km/h,0.9166666666666666,ocr,False
+4.167,75,2,,"Warning sign, symbol unclear",0.1174696683883667,candidate,True
+8.5,153,4,14,Stop,0.6322222222222221,ocr,False
+12.333,222,5,2,Speed limit 50 km/h,0.9333333333333332,ocr,False

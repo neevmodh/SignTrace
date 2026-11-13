@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Local traffic-sign detection, tracking and reading using your trained GTSRB model."><title>SignTrace — Traffic Sign Studio</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<svg class="svg-sprite" aria-hidden="true"><defs>
+<symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="3"/><path d="m16 9 5-3v12l-5-3z"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 16v4h16v-4"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7z"/></symbol>
+<symbol id="i-model" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/></symbol>
+<symbol id="i-history" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 3 8M3 4v7h7m2-4v6l4 2"/></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zm13-1c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L20 5"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m3 17 6-6 4 4 3-3 5 5"/><circle cx="16" cy="8" r="1"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
+</defs></svg>
+<aside class="sidebar">
+ <a class="brand" href="/"><span class="brand-icon"><svg viewBox="0 0 28 28"><path d="m14 5 10 17H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 11v5m0 3v.1" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>SignTrace<span class="brand-small">TRAFFIC INTELLIGENCE</span></span></a>
+ <div class="nav-label">WORKSPACE</div>
+ <nav aria-label="Workspace"><button id="studio-nav" class="nav active"><svg><use href="#i-video"/></svg>Analysis studio<span class="nav-dot"></span></button><button id="results-nav" class="nav"><svg><use href="#i-history"/></svg>Recent results</button><button id="model-nav" class="nav"><svg><use href="#i-model"/></svg>Model details</button></nav>
+ <div class="sidebar-bottom"><span class="local-dot"></span><div>Runs on your computer<small>Your videos stay local</small></div><span class="version">v1.0</span></div>
+</aside>
+<main>
+ <header class="topbar"><div class="breadcrumb">WORKSPACE <span>/</span> <strong>ANALYSIS STUDIO</strong></div><button id="health-badge" class="status-pill"><span class="dot loading"></span>Loading model…</button></header>
+ <section class="page-heading"><div><div class="eyebrow">SEE IT. TRACK IT. UNDERSTAND IT.</div><h1>Make every sign clear.</h1><p>Turn road footage into tracked signs, readable labels and spoken alerts.</p></div><button id="demo-button" class="button secondary"><svg><use href="#i-play"/></svg>Use sample clip</button></section>
+ <div class="metrics"><div class="metric"><span class="metric-icon mint"><svg><use href="#i-model"/></svg></span><div><span class="metric-label">YOUR CLASSIFIER</span><strong id="architecture">Checking checkpoint…</strong><small id="class-count">Loading saved model</small></div></div><div class="metric"><span class="metric-icon lilac"><svg><use href="#i-check"/></svg></span><div><span class="metric-label">CHECKPOINT VALIDATION</span><strong id="validation">—</strong><small>Stored result · not video accuracy</small></div></div><div class="metric"><span class="metric-icon blue"><svg><use href="#i-video"/></svg></span><div><span class="metric-label">INFERENCE DEVICE</span><strong id="device">—</strong><small id="ocr-status">Checking text reader</small></div></div></div>
+ <section class="sample-library card" aria-labelledby="sample-library-title">
+  <div class="sample-library-heading"><div><h2 id="sample-library-title">Road video library</h2><p>Choose the long drive for 7 visible sign types, or select a short tested clip.</p></div><span class="sample-count">5 VIDEOS</span></div>
+  <div id="sample-list" class="sample-list" aria-label="Road video library"></div>
+  <div class="sample-review-line"><p id="sample-description" class="sample-description" aria-live="polite">Loading road videos…</p><button id="reviewed-button" class="text-button">Open tested output</button></div>
+ </section>
+ <section id="sign-reference" class="sign-reference card hidden" aria-labelledby="sign-reference-title">
+  <h2 id="sign-reference-title">7 sign types visible in this drive</h2>
+  <p>Visual reference bookmarks · separate from model predictions. Some types are outside the model’s 43 classes.</p>
+  <div id="reference-list" class="reference-list"></div>
+ </section>
+ <div class="workspace">
+  <section class="card viewer-card">
+   <div class="card-heading"><div class="section-title"><span class="section-index">01</span><h2>Analysis studio</h2></div><div class="mode-switch" aria-label="Input type"><button class="mode active" id="video-mode" aria-pressed="true"><svg><use href="#i-video"/></svg>Video</button><button class="mode" id="image-mode" aria-pressed="false"><svg><use href="#i-image"/></svg>Image</button></div></div>
+   <div id="drop-zone" class="viewer" aria-label="Drop a video or image here">
+    <video id="player" controls preload="metadata" poster="/api/demo/poster" playsinline></video>
+    <img id="image-preview" class="hidden" alt="Annotated traffic sign analysis">
+    <img id="processing-preview" class="hidden" alt="Latest tracked video frame">
+    <div id="empty-state" class="empty-state hidden"><svg><use href="#i-upload"/></svg><h3>Bring your road footage.</h3><p>Drop a file here or browse to get started.</p><button class="button secondary" id="empty-browse">Browse files</button></div>
+    <div id="processing-badge" class="processing-badge hidden"><span class="dot"></span><span id="processing-stage">Analyzing video</span></div>
+    <div id="drag-overlay" class="drag-overlay hidden">Drop to select your file</div>
+   </div>
+   <div class="file-strip"><div class="file-icon"><svg><use href="#i-video"/></svg></div><div class="file-copy"><strong id="file-name">real_road.mp4</strong><small id="file-meta">Sample clip · ready to analyze</small></div><button id="browse-button" class="text-button"><svg><use href="#i-upload"/></svg>Change file</button></div>
+   <input id="file-input" class="hidden" type="file" accept="video/*,.mkv,.avi,.m4v">
+   <div class="progress-area hidden" id="progress-area"><div class="progress-copy"><span id="progress-label">Queued</span><strong id="progress-value">0%</strong></div><progress id="progress-bar" max="100" value="0"></progress><small id="frame-progress"></small></div>
+   <div class="viewer-actions"><div class="format-note"><span class="mini-check">✓</span>Browser-compatible video export</div><button class="button primary" id="analyze-button"><svg><use href="#i-play"/></svg><span>Analyze sample</span></button><button class="button danger hidden" id="cancel-button">Cancel analysis</button></div>
+  </section>
+  <aside class="right-column">
+   <section class="card settings-card"><div class="card-heading"><div class="section-title"><span class="section-index">02</span><h2>Recognition settings</h2></div></div><div class="settings-body">
+    <label class="slider-label" for="confidence">Model confidence <strong id="confidence-value">55%</strong></label><input type="range" id="confidence" min="30" max="95" value="55" step="5"><div class="range-labels"><span>More candidates</span><span>More selective</span></div>
+    <label class="select-label" for="stride">Classification interval</label><select id="stride"><option value="2">Every 2 frames · detailed</option><option value="3" selected>Every 3 frames · balanced</option><option value="6">Every 6 frames · faster</option></select>
+    <div class="setting-row"><div><strong>Read sign text</strong><small>Numbers, STOP and text boards</small></div><label class="switch"><input id="ocr-toggle" type="checkbox" checked aria-label="Read sign text with OCR"><span></span></label></div>
+    <div class="setting-row"><div><strong>Voice alerts</strong><small>Read signs during video playback</small></div><label class="switch"><input id="voice-toggle" type="checkbox" checked aria-label="Enable spoken alerts"><span></span></label></div>
+    <label class="checkbox-line"><input id="uncertain-voice" type="checkbox">Also read “possible” signs</label>
+    <label class="checkbox-line hidden" id="cropped-option"><input id="cropped-toggle" type="checkbox">Image is already cropped to one sign</label>
+    <div class="info-box">Text readings and model predictions are labeled separately. Uncertain symbols stay marked as <b>possible</b>.</div>
+   </div></section>
+   <section class="card detection-card"><div class="card-heading"><div class="section-title"><h2>Sign readings</h2><span id="event-count" class="count">0</span></div><span id="event-status" class="subtle">Waiting for analysis</span></div><div id="events" class="events"><div class="empty-events"><div class="scan-icon">⌗</div><strong>A clearer picture ahead.</strong><p>Confirmed readings and possible signs will appear here, with their timestamps.</p></div></div></section>
+  </aside>
+ </div>
+ <section id="download-card" class="card result-summary hidden"><div class="result-heading"><span class="success-icon">✓</span><div><h2>Analysis complete</h2><p id="result-description"></p></div></div><div class="download-actions"><a id="download-video" class="button primary" download><svg><use href="#i-down"/></svg>Download video</a><a id="download-csv" class="button secondary" download>Export readings CSV</a></div></section>
+ <div class="bottom-note"><span>GTSRB classifier + text reading + spatial tracking</span><span>Prototype recognition · review uncertain readings</span></div>
+</main>
+<dialog id="model-dialog"><div class="dialog-header"><div><span class="eyebrow">YOUR LOCAL CHECKPOINT</span><h2>Model details</h2></div><button class="close-dialog" aria-label="Close model details">×</button></div><div id="model-details"></div><h3>Class labels</h3><input id="class-search" class="search" placeholder="Search the 43 sign classes" aria-label="Search sign classes"><div id="classes" class="classes"></div></dialog>
+<dialog id="results-dialog"><div class="dialog-header"><div><span class="eyebrow">SAVED ON THIS COMPUTER</span><h2>Recent analyses</h2></div><button class="close-dialog" aria-label="Close recent analyses">×</button></div><div id="recent-results"></div></dialog>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<script src="/app.js" defer></script>
+</body></html>

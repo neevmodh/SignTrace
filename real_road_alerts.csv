@@ -1,0 +1,10 @@
+time_seconds,frame,track_id,class_id,label,confidence,source,uncertain
+5.4,162,34,38,Keep right,0.7252393762270609,gtsrb,False
+5.9,177,38,13,Yield,0.6204255620638529,gtsrb,False
+8.1,243,46,,"Warning sign, symbol unclear",0.08750504503647487,candidate,True
+8.3,249,69,,"Warning sign, symbol unclear",0.04543968476355076,candidate,True
+9.7,291,94,,"Warning sign, symbol unclear",0.08623431622982025,candidate,True
+9.8,294,88,,"Warning sign, symbol unclear",0.11035953958829244,candidate,True
+10.1,303,40,12,Priority road,0.6808101137479147,gtsrb,False
+12.0,360,138,38,Keep right,0.9679649670918783,gtsrb,False
+17.4,522,258,12,Priority road,0.5825340350468954,gtsrb,False

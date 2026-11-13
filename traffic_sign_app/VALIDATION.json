@@ -1,0 +1,110 @@
+{
+  "checkpoint": "/Users/neev/Downloads/DL/gtsrb_best_model.pth",
+  "sha256": "303eb43ddbd351675f2356df312958713c49e1a2531f9781a39819638e3d9407",
+  "checkpoint_load": "strict, weights_only=True; finite parameters; forward pass passed",
+  "architecture": "mobilenet_v3_large",
+  "classes": 43,
+  "stored_validation_accuracy": 82.65151515151516,
+  "test_results": "22 application and notebook tests passed",
+  "browser_run": {
+    "job_id": "727d28c32d594b5f884f8c1e221ca11c",
+    "frames": 270,
+    "duration_seconds": 15.0,
+    "confirmed_readings": 3,
+    "possible_signs": 1
+  },
+  "output_codec": "H.264, yuv420p, fast start; original audio preserved when present",
+  "limitation": "Color/shape localization is heuristic; the illustrated warning symbol remains uncertain.",
+  "real_sample": {
+    "filename": "real_road.mp4",
+    "frames": 532,
+    "duration_seconds": 17.733,
+    "source": "https://github.com/Suprit-U/Real-Time-Traffic-Sign/blob/main/Test/vidd1.mp4",
+    "browser_playback": "H.264/yuv420p, AAC, faststart",
+    "job_id": "259ecd07a0174dcea6214587adce144a",
+    "processed_frames": 532,
+    "result": "Completed; real Keep right sign detected, false positive Yield/Priority road readings also observed. Counts are predictions, not accuracy."
+  },
+  "sample_library": {
+    "count": 5,
+    "screened_clips": 30,
+    "source_recordings_in_screening": 26,
+    "final_source_drives": 2,
+    "final_type": "One complete long drive with seven manually referenced visible sign types, plus four short tested excerpts",
+    "reviewed_emitted_readings": 6,
+    "report": "benchmark/REPORT.md",
+    "localization": "Published GTSDB SSD MobileNet graph; unchanged user classifier",
+    "preview": "best_five_preview.png",
+    "fresh_browser_rerun": {
+      "sample": "street-island",
+      "job_id": "5d3da87e52384b7eaa297371f4bccfff",
+      "frames": 68,
+      "label": "Keep right",
+      "status": "done"
+    },
+    "tested_output_ui": "All five tested outputs opened successfully with their expected readings; no new browser errors observed."
+  },
+  "localizer_files": {
+    "models/detection.pbtxt": "570188e99ab9cb4aa92f88a7553f35815ffb1ac1c45c2e869c159de9e66ed19c",
+    "models/detection.pb": "8012eaa1977887ec9ea31ce6d90c54025a2f07621e2e94638ed40c512b974e0d"
+  },
+  "final_runs": [
+    {
+      "id": "speed-and-direction",
+      "frames": 180,
+      "labels": [
+        "Speed limit 30 km/h",
+        "Go straight or right"
+      ],
+      "status": "done",
+      "job_id": "39d651453a1d4595ba154370854a2add"
+    },
+    {
+      "id": "city-crossing",
+      "frames": 240,
+      "labels": [
+        "Keep right"
+      ],
+      "status": "done",
+      "job_id": "15158b004722416b8f4dd87e8a6da642"
+    },
+    {
+      "id": "street-island",
+      "frames": 68,
+      "labels": [
+        "Keep right"
+      ],
+      "status": "done",
+      "job_id": "ac1c8004ba494b33a2fd0f3c8329fc76"
+    },
+    {
+      "id": "city-junction",
+      "frames": 210,
+      "labels": [
+        "Keep right"
+      ],
+      "status": "done",
+      "job_id": "1c83886c569b4e8f8e7cc8d44cacbc2b"
+    },
+    {
+      "id": "town-speed-30",
+      "frames": 180,
+      "labels": [
+        "Speed limit 30 km/h"
+      ],
+      "status": "done",
+      "job_id": "149877eed6194b059a6876cb6808a4fc"
+    }
+  ],
+  "long_drive": {
+    "filename": "german-long-drive.mp4",
+    "job_id": "68a88013662949b2a82f7f776bf5f362",
+    "frames": 3663,
+    "duration_seconds": 244.2,
+    "visible_sign_types": 7,
+    "visual_reference_bookmarks": 7,
+    "emitted_predictions": 11,
+    "note": "Visible type count is manual reference, not a count of correctly recognized model classes. Misses and wrong readings remain.",
+    "review": "benchmark/LONG_DRIVE_REVIEW.md"
+  }
+}

@@ -1,0 +1,10 @@
+.venv/
+.venv312/
+.pytest_cache/
+__pycache__/
+.DS_Store
+data2/
+*.mp4
+traffic_sign_app/runtime/
+traffic_sign_app/benchmark/
+traffic_sign_app/samples/
