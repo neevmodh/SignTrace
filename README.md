@@ -457,4 +457,4 @@ The drive has seven manually verified sign types: 30 km/h, priority road, straig
 - **Detector:** SSD MobileNet GTSDB graph from [aarcosg/traffic-sign-detection](https://github.com/aarcosg/traffic-sign-detection), via [MaxRitter/OpenCV_TrafficSign](https://github.com/MaxRitter/OpenCV_TrafficSign).
 - **Libraries:** PyTorch, torchvision, OpenCV, FastAPI, Tesseract, FFmpeg.
 - **Sample footage:** sources in `traffic_sign_app/samples/SOURCES.md` (local). The source repositories do not state an explicit media license, so verify rights before redistributing any footage.
-- This repository has no license file yet. Add one before inviting reuse.
+- Project code is released under the [MIT License](LICENSE). The license does not cover GTSRB, the detector graph or the sample footage, which keep their own terms.
